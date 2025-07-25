@@ -58,7 +58,7 @@ const MyEstimatesPage = () => {
         <div className="bg-gray-300 dark:bg-gray-700 h-10 w-full sm:w-24 rounded"></div>
     </div>
   );
-  
+
   if (status === 'loading') {
     return <div className="text-center py-10">Authenticating...</div>
   }
@@ -90,7 +90,7 @@ const MyEstimatesPage = () => {
         <div className="text-center py-16 px-6 formstyle rounded-lg">
             <h3 className="text-xl font-semibold">No Saved Estimates</h3>
             <p className="text-gray-500 dark:text-gray-400 mt-2">
-              You haven't saved any trip cost estimates yet.
+              You haven&apos;t saved any trip cost estimates yet.
             </p>
             <Link href="/costEstimator" className="btn text-white font-bold py-2 px-5 rounded mt-4 inline-block">
               Calculate a New Trip

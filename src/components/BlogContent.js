@@ -11,13 +11,15 @@ const BlogContent = ({ content }) => {
         }
         if (block.type === 'image') {
           return (
-            <Image
-              src={block.value}
-              alt={`Blog image ${index + 1}`}
-              width={800}
-              height={450}
-              className="rounded-lg shadow-md object-cover w-full h-auto"
-            />
+            <div key={index} className="my-8">
+                <Image
+                    src={block.value}
+                    alt={`Blog image ${index + 1}`}
+                    width={800}
+                    height={450}
+                    className="rounded-lg shadow-md object-cover w-full h-auto"
+                />
+            </div>
           );
         }
         return null;

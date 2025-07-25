@@ -134,7 +134,15 @@ const BlogEditorPage = () => {
                     placeholder="Write your paragraph here..."
                   />
                 ) : (
-                  <img src={block.value} alt="Blog content" className="w-full h-auto rounded-md object-cover" />
+                  <div className="relative w-full aspect-video">
+                    <Image
+                        src={block.value}
+                        alt="Blog content preview"
+                        fill 
+                        style={{ objectFit: 'cover' }} 
+                        className="rounded-md"
+                    />
+                  </div>
                 )}
                 <button type="button" onClick={() => removeContentBlock(index)} className="absolute -top-3 -right-3 bg-red-600 hover:bg-red-700 text-white rounded-full w-7 h-7 flex items-center justify-center font-bold shadow-lg text-sm">
                   ✕
