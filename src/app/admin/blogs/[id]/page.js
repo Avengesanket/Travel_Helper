@@ -5,6 +5,7 @@ import { useRouter, useParams } from 'next/navigation';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Image from 'next/image';
 
 const BlogEditorPage = () => {
   const router = useRouter();
