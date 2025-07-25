@@ -1,4 +1,3 @@
-// src/app/admin/blogs/[id]/page.js
 "use client";
 
 import { useState, useEffect } from 'react';
@@ -64,7 +63,6 @@ const BlogEditorPage = () => {
       const res = await axios.post('/api/upload', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
-      // Add a new image block with the returned URL
       const newContent = [...blog.content, { type: 'image', value: res.data.url }];
       setBlog({ ...blog, content: newContent });
       toast.success('Image uploaded!');

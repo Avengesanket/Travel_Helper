@@ -27,7 +27,6 @@ const CostEstimatorForm = () => {
     const fetchFuelPrices = async () => {
       try {
         const res = await axios.get('/api/fuel');
-        // Convert array to a key-value object e.g., { petrol: 105, diesel: 91 }
         const priceMap = res.data.fuelPrices.reduce((acc, fuel) => {
           acc[fuel.type] = fuel.price;
           return acc;
@@ -120,7 +119,6 @@ const CostEstimatorForm = () => {
     <div className="container mx-auto mt-10">
       <ToastContainer position="top-center" autoClose={3000} />
       <form className="formstyle max-w-md mx-auto p-6 rounded-md" onSubmit={handleSubmit}>
-        {/* Changed from flex to grid for consistent alignment */}
         <div className='grid grid-cols-2 items-center gap-x-4 gap-y-4'>
             {/* From */}
             <label htmlFor="fromLocation" className="font-medium">From:</label>

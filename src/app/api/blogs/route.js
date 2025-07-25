@@ -1,4 +1,3 @@
-// src/app/api/blogs/route.js
 import { NextResponse } from 'next/server';
 import dbConnect from '@/lib/dbConnect';
 import Blog from '@/models/Blog';

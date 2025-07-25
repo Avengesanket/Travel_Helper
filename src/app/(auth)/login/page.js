@@ -8,7 +8,7 @@ const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const router = useRouter(); // Correct usage
+  const router = useRouter(); 
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -28,7 +28,7 @@ const Login = () => {
 
     setLoading(false);
     if (res.ok) {
-      const session = await getSession(); // Fetch session after successful login
+      const session = await getSession(); 
       if (session.user.isAdmin) {
         router.push("/adminPage");
       } else {

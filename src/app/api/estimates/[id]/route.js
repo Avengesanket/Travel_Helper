@@ -25,7 +25,6 @@ export async function DELETE(req, { params }) {
       return NextResponse.json({ message: "Estimate not found" }, { status: 404 });
     }
     
-    // Security Check: Ensure the user deleting the estimate is the one who created it
     if (estimate.userId.toString() !== session.user.id) {
         return NextResponse.json({ message: "Forbidden" }, { status: 403 });
     }

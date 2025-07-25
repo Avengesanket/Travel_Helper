@@ -33,7 +33,7 @@ export const authOptions = {
         }
         if (email.toLowerCase() === "admin@gmail.com") {
           user.isAdmin = true;
-          await user.save(); // Save if not already set
+          await user.save(); 
         }
 
         // Check if the user is an admin
@@ -54,7 +54,7 @@ export const authOptions = {
         token.id = user.id;
         token.email = user.email;
         token.fullName = user.fullName;
-        token.isAdmin = user.isAdmin; // Include admin flag in the token
+        token.isAdmin = user.isAdmin; 
       }
       return token;
     },
@@ -63,7 +63,7 @@ export const authOptions = {
         id: token.id,
         email: token.email,
         fullName: token.fullName,
-        isAdmin: token.isAdmin, // Pass admin flag to the session
+        isAdmin: token.isAdmin,
       };
       return session;
     },

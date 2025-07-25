@@ -11,9 +11,9 @@ const LightDarkMode = () => {
   useEffect(() => {
     const body = document.body;
     if (theme === 'dark') {
-      body.classList.add('dark-mode');
+      body.classList.add('dark');
     } else {
-      body.classList.remove('dark-mode');
+      body.classList.remove('dark');
     }
   }, [theme]);
 

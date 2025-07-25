@@ -1,5 +1,3 @@
-// src/components/SessionProfile.js
-
 'use client';
 
 import { useSession, signOut } from 'next-auth/react';
@@ -11,7 +9,6 @@ const SessionProfile = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
 
-  // This effect handles closing the menu if you click outside of it
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
@@ -22,6 +19,7 @@ const SessionProfile = () => {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
+    
   }, []);
 
   if (!session) {
@@ -52,9 +50,7 @@ const SessionProfile = () => {
   const shortName = getShortName(session.user.fullName);
 
   return (
-    // Use the ref here
     <div className="relative" ref={menuRef}>
-      {/* Username button */}
       <button
         onClick={() => setMenuOpen(!menuOpen)}
         className={`hover:text-gray-700 dark:hover:text-gray-300 ${
@@ -64,17 +60,13 @@ const SessionProfile = () => {
         {shortName}
       </button>
 
-      {/* Dropdown menu */}
       {menuOpen && (
-        // --- ALL CHANGES ARE HERE ---
-        // Added dark mode classes for background and text color.
         <div 
           className="absolute right-0 mt-2 w-48 rounded-md shadow-lg z-50
                      bg-white ring-1 ring-black ring-opacity-5
                      dark:bg-neutral-800 dark:ring-1 dark:ring-neutral-700"
         >
           <div className="py-1">
-            {/* Conditionally render My Estimates link for non-admins */}
             {!isAdmin && (
               <Link
                 href="/my-estimates"
@@ -106,7 +98,6 @@ const SessionProfile = () => {
             </button>
           </div>
         </div>
-        // --- END OF CHANGES ---
       )}
     </div>
   );

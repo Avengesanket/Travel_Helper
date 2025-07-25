@@ -36,7 +36,6 @@ const MyEstimatesPage = () => {
 
     try {
       await axios.delete(`/api/estimates/${id}`);
-      // Remove the deleted estimate from the state
       setEstimates(estimates.filter(e => e._id !== id));
       toast.success('Estimate deleted!');
     } catch (error) {

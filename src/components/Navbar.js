@@ -1,4 +1,3 @@
-// src/components/Navbar.js
 'use client';
 
 import Link from 'next/link';
@@ -10,7 +9,6 @@ const Navbar = () => {
   const { data: session } = useSession();
   const isAdmin = session?.user?.isAdmin;
 
-  // --- Reusable Link Classes for consistency ---
   const linkClasses = "hover:text-gray-700 dark:hover:text-gray-300";
 
   return (

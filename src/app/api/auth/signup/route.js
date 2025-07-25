@@ -5,11 +5,9 @@ import { NextResponse } from "next/server";
 
 export async function POST(req) {
   try {
-    // Connect to the database
     await dbConnect();
     const { fullName, email, password } = await req.json();
 
-    // Validate inputs
     if (!fullName || !email || !password) {
       return NextResponse.json(
         { error: "Full name, email, and password are required." },
@@ -17,10 +15,8 @@ export async function POST(req) {
       );
     }
 
-    // Normalize email
     const normalizedEmail = email.toLowerCase();
 
-    // Check if the user already exists
     if (await User.findOne({ email: normalizedEmail })) {
       return NextResponse.json(
         { error: "User already exists." },
@@ -28,18 +24,14 @@ export async function POST(req) {
       );
     }
 
-    // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
-
-    // Check if the email is `admin@gmail.com` and assign the admin role
     const isAdmin = normalizedEmail === "admin@gmail.com";
 
-    // Create and save the new user
     const newUser = await User.create({
       fullName,
       email: normalizedEmail,
       password: hashedPassword,
-      isAdmin, // Set admin role if the email matches
+      isAdmin, 
     });
 
     return NextResponse.json(
@@ -47,7 +39,7 @@ export async function POST(req) {
       { status: 201 }
     );
   } catch (error) {
-    console.error("Error during user signup:", error); // Log error for debugging
+    console.error("Error during user signup:", error); 
     return NextResponse.json(
       { message: "An error occurred while registering the user." },
       { status: 500 }

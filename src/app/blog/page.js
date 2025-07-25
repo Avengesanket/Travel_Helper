@@ -1,4 +1,3 @@
-// src/app/blog/page.js
 "use client";
 import { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -17,7 +16,6 @@ const BlogListPage = () => {
 
     if (loading) return <div className="text-center">Loading posts...</div>;
 
-    // Function to get the first paragraph as a preview
     const getPreview = (content) => {
         const firstParagraph = content.find(block => block.type === 'paragraph');
         return firstParagraph ? firstParagraph.value.substring(0, 150) + '...' : 'No content preview available.';
@@ -30,7 +28,6 @@ const BlogListPage = () => {
                 {blogs.map(blog => (
                     <Link key={blog._id} href={`/blog/${blog.slug}`}>
                         <div className="formstyle rounded-lg overflow-hidden h-full flex flex-col">
-                            {/* Find first image for the card */}
                             <img 
                                 src={blog.content.find(b => b.type === 'image')?.value || '/mountain.jpg'} 
                                 alt={blog.title} 

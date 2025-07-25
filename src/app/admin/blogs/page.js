@@ -1,4 +1,3 @@
-// src/app/admin/blogs/page.js
 "use client";
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -29,7 +28,7 @@ const AdminBlogsPage = () => {
       try {
         await axios.delete(`/api/blogs/${id}`);
         toast.success('Blog deleted!');
-        fetchBlogs(); // Refresh list
+        fetchBlogs(); 
       } catch (error) {
         toast.error('Failed to delete blog.');
       }

@@ -27,26 +27,26 @@
         color: rgb(18, 18, 255);
     }
     /* Dark mode styles */
-    body.dark-mode {
-        background-color: #121212;
-        color: white;
-    }
-    body.dark-mode .btn {
-        background-color: #f2f2f2;
-        color: black;
-    }
-    
-    body.dark-mode .btn:hover {
-        background-color: #4c4c4c;
-        color: #f2f2f2;
-    }
-    body.dark-mode .formstyle{
-        background-color: #121212;
-        box-shadow: 0px 0px 5px 1px rgba(242,242,242,1);
-    }
-    body.dark-mode select, body.dark-mode input{
-        background-color: #242424;
-    }
-    body.dark-mode .linkColor{
-        color: rgb(231, 255, 18);
-    }
+    body.dark { 
+    background-color: #121212;
+    color: white;
+}
+.dark .btn { 
+    background-color: #f2f2f2;
+    color: black;
+}
+
+.dark .btn:hover { 
+    background-color: #4c4c4c;
+    color: #f2f2f2;
+}
+.dark .formstyle{ 
+    background-color: #121212;
+    box-shadow: 0px 0px 5px 1px rgba(242,242,242,1);
+}
+.dark select, .dark input{ 
+    background-color: #242424;
+}
+.dark .linkColor{ 
+    color: rgb(231, 255, 18);
+}

@@ -53,7 +53,6 @@ const AdminPanel = () => {
     <div className="w-3/5 mx-auto">
       <h1 className="text-3xl text-center font-bold mb-4">Update Fuel Prices</h1>
       <div className="formstyle container mt-10 mx-auto bg-white p-6 rounded-md">
-        {/* Using a 3-column grid for alignment */}
         <div className="grid grid-cols-3 items-center gap-x-4 gap-y-6">
           {["petrol", "diesel", "cng", "electric"].map((fuelType) => (
             <React.Fragment key={fuelType}>
