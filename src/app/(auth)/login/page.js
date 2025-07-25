@@ -41,48 +41,63 @@ const Login = () => {
   };
 
   return (
-    <div className="w-2/5 mx-auto">
-      <h1 className="text-2xl text-center font-bold mb-4">LOGIN</h1>
-      <form onSubmit={handleSubmit} className="formstyle container mt-10 max-w-md mx-auto bg-white p-6 rounded-md">
-        <div className="flex flex-col space-y-4">
-          <div className="flex justify-between items-center">
-            <label htmlFor="email">Email:</label>
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleInputChange}
-                required
-                className="py-3 px-4 bg-gray-100 border border-gray-500 rounded-lg text-sm focus:border-blue-500"
-              />
-          </div>
-          
-          <div className="flex justify-between items-center">
-            <label htmlFor="password">Password:</label>
-            <input
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleInputChange}
-              required
-              className="py-3 px-4 bg-gray-100 border border-gray-500 rounded-lg text-sm focus:border-blue-500"
-            />
-          </div>
-          {error && <p className="text-red-500">{error}</p>}
-          <button
-            type="submit"
-            disabled={loading}
-            className={`btn text-white text-sm px-5 py-2.5 font-bold focus:outline-none rounded-lg mt-4 ${
-              loading ? "opacity-50 cursor-not-allowed" : ""
-            }`}
-          >
-            {loading ? "Processing..." : "SUBMIT"}
-          </button>
-          <p>
-            New User?{" "}
-            <Link className="linkColor font-semibold" href="/signup">Sign Up</Link>
-          </p>
+    <div className="w-full max-w-md mx-auto px-4 py-8 sm:py-12">
+      <h1 className="text-3xl text-center font-bold mb-6">LOGIN</h1>
+      
+      <form onSubmit={handleSubmit} className="formstyle p-6 rounded-lg space-y-6">
+        
+        {/* Email Field */}
+        <div className="flex flex-col space-y-2">
+          <label htmlFor="email" className="font-medium text-gray-700 dark:text-gray-300">
+            Email:
+          </label>
+          <input
+            id="email"
+            type="email"
+            name="email"
+            placeholder="you@example.com"
+            value={formData.email}
+            onChange={handleInputChange}
+            required
+            className="w-full py-3 px-4 border border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+          />
         </div>
+
+        {/* Password Field */}
+        <div className="flex flex-col space-y-2">
+          <label htmlFor="password" className="font-medium text-gray-700 dark:text-gray-300">
+            Password:
+          </label>
+          <input
+            id="password" 
+            type="password"
+            name="password"
+            placeholder="••••••••"
+            value={formData.password}
+            onChange={handleInputChange}
+            required
+            className="w-full py-3 px-4 border border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+          />
+        </div>
+
+        {error && <p className="text-red-500 text-sm text-center">{error}</p>}
+
+        <button
+          type="submit"
+          disabled={loading}
+          className={`btn w-full text-base px-5 py-3 font-bold focus:outline-none rounded-lg mt-4 ${
+            loading ? "opacity-50 cursor-not-allowed" : ""
+          }`}
+        >
+          {loading ? "Processing..." : "LOGIN"}
+        </button>
+
+        <p className="text-center text-sm">
+          New User?{" "}
+          <Link className="linkColor font-semibold" href="/signup">
+            Sign Up
+          </Link>
+        </p>
       </form>
     </div>
   );

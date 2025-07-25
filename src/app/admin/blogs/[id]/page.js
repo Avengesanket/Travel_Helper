@@ -92,63 +92,75 @@ const BlogEditorPage = () => {
     }
   };
   
-  if (loading && id !== 'new') return <div>Loading...</div>;
+  if (loading && id !== 'new') return <div className="text-center p-8">Loading editor...</div>;
 
   return (
-    <div className="w-4/5 mx-auto">
+    <div className="w-full max-w-4xl mx-auto px-4 py-8">
       <ToastContainer position="top-center" autoClose={3000} />
-      <h1 className="text-3xl font-bold mb-6">{id === 'new' ? 'Create New Blog Post' : 'Edit Blog Post'}</h1>
+      <h1 className="text-2xl sm:text-3xl font-bold mb-6 text-center sm:text-left">
+        {id === 'new' ? 'Create New Blog Post' : 'Edit Blog Post'}
+      </h1>
       
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <div>
-          <label htmlFor="title" className="block text-sm font-medium mb-1">Title</label>
-          <input type="text" name="title" id="title" value={blog.title} onChange={handleInputChange} className="w-full form-input py-2 px-3 bg-gray-100 border border-gray-500 rounded-lg" required/>
-        </div>
-        <div>
-          <label htmlFor="slug" className="block text-sm font-medium mb-1">URL Slug</label>
-          <input type="text" name="slug" id="slug" value={blog.slug} onChange={handleInputChange} className="w-full form-input py-2 px-3 bg-gray-100 border border-gray-500 rounded-lg" required/>
-        </div>
-
-        <hr />
-        
-        <h2 className="text-2xl font-semibold">Content</h2>
-        <div className="space-y-4">
-          {blog.content.map((block, index) => (
-            <div key={index} className="relative p-4 border rounded-md">
-              {block.type === 'paragraph' ? (
-                <textarea
-                  value={block.value}
-                  onChange={(e) => handleContentChange(index, e.target.value)}
-                  rows="5"
-                  className="w-full form-textarea bg-gray-100 border border-gray-400 rounded-lg p-2"
-                  placeholder="Write your paragraph here..."
-                />
-              ) : (
-                <img src={block.value} alt="Blog content" className="w-full h-auto rounded-md object-cover" />
-              )}
-              <button type="button" onClick={() => removeContentBlock(index)} className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center font-bold">
-                X
-              </button>
-            </div>
-          ))}
+      <form onSubmit={handleSubmit} className="space-y-8">
+        {/* --- Title and Slug Section --- */}
+        <div className="p-6 formstyle rounded-lg space-y-6">
+          <h2 className="text-xl font-semibold border-b pb-2">Post Details</h2>
+          <div>
+            <label htmlFor="title" className="block text-sm font-medium mb-2 dark:text-gray-300">Title</label>
+            <input 
+              type="text" name="title" id="title" value={blog.title} onChange={handleInputChange} 
+              className="w-full py-3 px-4 border border-gray-400 rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" required/>
+          </div>
+          <div>
+            <label htmlFor="slug" className="block text-sm font-medium mb-2 dark:text-gray-300">URL Slug</label>
+            <input 
+              type="text" name="slug" id="slug" value={blog.slug} onChange={handleInputChange} 
+              className="w-full py-3 px-4 border border-gray-400 rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" required/>
+          </div>
         </div>
 
-        <div className="flex items-center gap-4 pt-4">
-          <button type="button" onClick={() => addContentBlock('paragraph')} className="btn text-white font-bold py-2 px-4 rounded">
-            + Add Paragraph
+        {/* --- Content Editor Section --- */}
+        <div className="p-6 formstyle rounded-lg space-y-6">
+          <h2 className="text-xl font-semibold border-b pb-2">Content Editor</h2>
+          <div className="space-y-4">
+            {blog.content.map((block, index) => (
+              <div key={index} className="relative p-4 border dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-800">
+                {block.type === 'paragraph' ? (
+                  <textarea
+                    value={block.value}
+                    onChange={(e) => handleContentChange(index, e.target.value)}
+                    rows="6"
+                    className="w-full form-textarea border-gray-400 rounded-lg p-2 focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                    placeholder="Write your paragraph here..."
+                  />
+                ) : (
+                  <img src={block.value} alt="Blog content" className="w-full h-auto rounded-md object-cover" />
+                )}
+                <button type="button" onClick={() => removeContentBlock(index)} className="absolute -top-3 -right-3 bg-red-600 hover:bg-red-700 text-white rounded-full w-7 h-7 flex items-center justify-center font-bold shadow-lg text-sm">
+                  ✕
+                </button>
+              </div>
+            ))}
+            {blog.content.length === 0 && <p className="text-center text-gray-500 py-4">Add your first content block below.</p>}
+          </div>
+
+          <div className="flex flex-col sm:flex-row items-center gap-4 pt-4">
+            <button type="button" onClick={() => addContentBlock('paragraph')} className="btn w-full sm:w-auto text-white font-bold py-2 px-4 rounded">
+              + Add Paragraph
+            </button>
+            <label className={`btn w-full sm:w-auto text-white font-bold py-2 px-4 rounded cursor-pointer ${isUploading ? 'opacity-50' : ''}`}>
+              {isUploading ? 'Uploading...' : '+ Add Image'}
+              <input type="file" onChange={handleImageUpload} className="hidden" disabled={isUploading} accept="image/*" />
+            </label>
+          </div>
+        </div>
+
+        {/* --- Final Save Button --- */}
+        <div className="flex justify-end">
+          <button type="submit" disabled={loading || isUploading} className="btn text-white text-lg font-bold py-3 px-8 rounded-lg disabled:opacity-50">
+            {loading ? 'Saving...' : 'Save Blog Post'}
           </button>
-          
-          <label className={`btn text-white font-bold py-2 px-4 rounded cursor-pointer ${isUploading ? 'opacity-50' : ''}`}>
-            {isUploading ? 'Uploading...' : '+ Add Image'}
-            <input type="file" onChange={handleImageUpload} className="hidden" disabled={isUploading} accept="image/*" />
-          </label>
         </div>
-
-        <hr />
-
-        <button type="submit" disabled={loading} className="btn text-white text-lg font-bold py-3 px-8 rounded-lg">
-          {loading ? 'Saving...' : 'Save Blog Post'}
-        </button>
       </form>
     </div>
   );

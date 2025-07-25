@@ -8,6 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const AdminBlogsPage = () => {
   const [blogs, setBlogs] = useState([]);
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
@@ -15,11 +16,14 @@ const AdminBlogsPage = () => {
   }, []);
 
   const fetchBlogs = async () => {
+    setLoading(true);
     try {
       const { data } = await axios.get('/api/blogs');
       setBlogs(data);
     } catch (error) {
       toast.error('Failed to fetch blogs.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -36,33 +40,60 @@ const AdminBlogsPage = () => {
   };
 
   return (
-    <div className="w-4/5 mx-auto">
+    <div className="w-full max-w-5xl mx-auto px-4 py-8">
       <ToastContainer position="top-center" autoClose={3000} />
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold">Manage Blogs</h1>
-        <Link href="/admin/blogs/new" className="btn text-white font-bold py-2 px-4 rounded">
+
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-8">
+        <h1 className="text-2xl sm:text-3xl font-bold text-center sm:text-left">
+          Manage Blogs
+        </h1>
+        <Link href="/admin/blogs/new" className="btn text-white font-bold py-2 px-4 rounded w-full sm:w-auto text-center">
           + Create New Blog
         </Link>
       </div>
+
       <div className="space-y-4">
-        {blogs.map((blog) => (
-          <div key={blog._id} className="formstyle p-4 rounded-lg flex justify-between items-center">
-            <div>
-              <h2 className="text-xl font-semibold">{blog.title}</h2>
-              <p className="text-sm text-gray-500">
-                Last updated: {new Date(blog.updatedAt).toLocaleDateString()}
-              </p>
-            </div>
-            <div className="space-x-2">
-              <button onClick={() => router.push(`/admin/blogs/${blog._id}`)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                Edit
-              </button>
-              <button onClick={() => deleteBlog(blog._id)} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-                Delete
-              </button>
-            </div>
+        {loading ? (
+          <p className="text-center py-8 text-gray-500">Loading blogs...</p>
+        ) : blogs.length === 0 ? (
+          <div className="text-center py-16 px-6 formstyle rounded-lg">
+            <h3 className="text-xl font-semibold">No Blogs Found</h3>
+            <p className="text-gray-500 mt-2">
+              Ready to share your first story?
+            </p>
+            <Link href="/admin/blogs/new" className="btn text-white font-bold py-2 px-5 rounded mt-4 inline-block">
+              Create Your First Blog
+            </Link>
           </div>
-        ))}
+        ) : (
+          blogs.map((blog) => (
+            <div key={blog._id} className="formstyle p-4 rounded-lg flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
+              {/* Info Section */}
+              <div className="w-full sm:w-auto">
+                <h2 className="text-xl font-semibold break-words">{blog.title}</h2>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  Last updated: {new Date(blog.updatedAt).toLocaleDateString()}
+                </p>
+              </div>
+              
+              {/* Action Buttons Section */}
+              <div className="flex items-center gap-2 w-full sm:w-auto">
+                <button 
+                  onClick={() => router.push(`/admin/blogs/${blog._id}`)} 
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-1/2 sm:w-auto"
+                >
+                  Edit
+                </button>
+                <button 
+                  onClick={() => deleteBlog(blog._id)} 
+                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded w-1/2 sm:w-auto"
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          ))
+        )}
       </div>
     </div>
   );

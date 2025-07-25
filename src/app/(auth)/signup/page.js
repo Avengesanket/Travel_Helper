@@ -54,78 +54,98 @@ const Signup = () => {
   };
 
   return (
-    <div className="w-2/5 m-auto">
-      <h1 className="text-2xl text-center font-bold mb-4">SIGNUP</h1>
-      <form
-        className="formstyle container mt-10 max-w-md mx-auto bg-white p-6 rounded-md"
-        onSubmit={handleSubmit}
-      >
-        <div className="flex flex-col space-y-4">
-          <div className="flex justify-between items-center">
-            <label htmlFor="fullName">Full Name:</label>
-            <input
-              type="text"
-              id="fullName"
-              name="fullName"
-              value={formData.fullName}
-              onChange={handleInputChange}
-              className="py-3 px-4 bg-gray-100 border border-gray-500 rounded-lg text-sm focus:border-blue-500"
-              required
-            />
-          </div>
-          <div className="flex justify-between items-center">
-            <label htmlFor="email">Email:</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleInputChange}
-              className="py-3 px-4 bg-gray-100 border border-gray-500 rounded-lg text-sm focus:border-blue-500"
-              required
-            />
-          </div>
-          <div className="flex justify-between items-center">
-            <label htmlFor="password">Password:</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleInputChange}
-              className="py-3 px-4 bg-gray-100 border border-gray-500 rounded-lg text-sm focus:border-blue-500"
-              required
-            />
-          </div>
-          <div className="flex justify-between items-center">
-            <label htmlFor="confirmPassword">Confirm Password:</label>
-            <input
-              type="password"
-              id="confirmPassword"
-              name="confirmPassword"
-              value={formData.confirmPassword}
-              onChange={handleInputChange}
-              className="py-3 px-4 bg-gray-100 border border-gray-500 rounded-lg text-sm focus:border-blue-500"
-              required
-            />
-          </div>
-          <button
-            type="submit"
-            disabled={loading}
-            className={`btn text-white text-sm px-5 py-2.5 font-bold focus:outline-none rounded-lg mt-4 ${
-              loading ? 'opacity-50 cursor-not-allowed' : ''
-            }`}
-          >
-            {loading ? 'Processing...' : 'CREATE ACCOUNT'}
-          </button>
-          {error && <p className="text-red-500">{error}</p>}
-          <p>
-            Already have an account?{' '}
-            <Link className="linkColor ml-4 font-semibold" href="/login">
-              Login
-            </Link>
-          </p>
+    <div className="w-full max-w-md mx-auto px-4 py-8 sm:py-12">
+      <h1 className="text-3xl text-center font-bold mb-6">CREATE AN ACCOUNT</h1>
+      
+      {/* The `formstyle` class from globals.css will handle the card look */}
+      <form onSubmit={handleSubmit} className="formstyle p-6 rounded-lg space-y-6">
+
+        {/* Full Name Field */}
+        <div className="flex flex-col space-y-2">
+          <label htmlFor="fullName" className="font-medium text-gray-700 dark:text-gray-300">
+            Full Name:
+          </label>
+          <input
+            id="fullName"
+            type="text"
+            name="fullName"
+            placeholder="John Doe"
+            value={formData.fullName}
+            onChange={handleInputChange}
+            required
+            className="w-full py-3 px-4 border border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+          />
         </div>
+
+        {/* Email Field */}
+        <div className="flex flex-col space-y-2">
+          <label htmlFor="email" className="font-medium text-gray-700 dark:text-gray-300">
+            Email:
+          </label>
+          <input
+            id="email"
+            type="email"
+            name="email"
+            placeholder="you@example.com"
+            value={formData.email}
+            onChange={handleInputChange}
+            required
+            className="w-full py-3 px-4 border border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+          />
+        </div>
+
+        {/* Password Field */}
+        <div className="flex flex-col space-y-2">
+          <label htmlFor="password" className="font-medium text-gray-700 dark:text-gray-300">
+            Password:
+          </label>
+          <input
+            id="password"
+            type="password"
+            name="password"
+            placeholder="Create a strong password"
+            value={formData.password}
+            onChange={handleInputChange}
+            required
+            className="w-full py-3 px-4 border border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+          />
+        </div>
+
+        {/* Confirm Password Field */}
+        <div className="flex flex-col space-y-2">
+          <label htmlFor="confirmPassword" className="font-medium text-gray-700 dark:text-gray-300">
+            Confirm Password:
+          </label>
+          <input
+            id="confirmPassword"
+            type="password"
+            name="confirmPassword"
+            placeholder="Confirm your password"
+            value={formData.confirmPassword}
+            onChange={handleInputChange}
+            required
+            className="w-full py-3 px-4 border border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+          />
+        </div>
+
+        {error && <p className="text-red-500 text-sm text-center">{error}</p>}
+
+        <button
+          type="submit"
+          disabled={loading}
+          className={`btn w-full text-base px-5 py-3 font-bold focus:outline-none rounded-lg mt-4 ${
+            loading ? 'opacity-50 cursor-not-allowed' : ''
+          }`}
+        >
+          {loading ? 'Creating Account...' : 'CREATE ACCOUNT'}
+        </button>
+
+        <p className="text-center text-sm">
+          Already have an account?{' '}
+          <Link className="linkColor font-semibold" href="/login">
+            Login
+          </Link>
+        </p>
       </form>
     </div>
   );

@@ -2,6 +2,7 @@ import dbConnect from "@/lib/dbConnect";
 import Blog from "@/models/Blog";
 import Image from "next/image";
 import { notFound } from "next/navigation";
+import BlogContent from '@/components/BlogContent';
 
 async function getBlog(slug) {
     await dbConnect();
@@ -27,40 +28,39 @@ const BlogPostPage = async ({ params }) => {
     if (!blog) {
         notFound();
     }
+    const headerImage = blog.content.find(block => block.type === 'image');
+    const mainContent = headerImage 
+        ? blog.content.filter(block => block.value !== headerImage.value) 
+        : blog.content;
 
     return (
-        <article className="w-full md:w-3/4 lg:w-2/3 mx-auto px-4">
-            <h1 className="text-4xl md:text-5xl font-extrabold text-center my-8 leading-tight">{blog.title}</h1>
+        <article className="w-full max-w-3xl mx-auto px-4 py-8">
             
-            <p className="text-center text-gray-500 dark:text-gray-200 mb-8">
-                Published on {new Date(blog.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
-            </p>
+            <header className="text-center mb-8">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight mb-4">
+                    {blog.title}
+                </h1>
+                
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                    Published on {new Date(blog.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                </p>
+            </header>
+
+            {/* Display the header image */}
+            {headerImage && (
+                <div className="mb-8">
+                    <Image
+                        src={headerImage.value}
+                        alt={`Header image for ${blog.title}`}
+                        width={1200}
+                        height={675}
+                        priority 
+                        className="rounded-lg shadow-lg object-cover w-full h-auto"
+                    />
+                </div>
+            )}
             
-            <div className="max-w-none text-lg leading-relaxed">
-                {blog.content.map((block, index) => {
-                    if (block.type === 'paragraph') {
-                        return (
-                            <p key={index} className="text-gray-800 dark:text-gray-300 my-6">
-                                {block.value}
-                            </p>
-                        );
-                    }
-                    if (block.type === 'image') {
-                        return (
-                            <div key={index} className="my-8">
-                                <Image
-                                    src={block.value}
-                                    alt={`Blog image ${index + 1}`}
-                                    width={800}
-                                    height={450}
-                                    className="rounded-lg shadow-lg object-cover w-full"
-                                />
-                            </div>
-                        );
-                    }
-                    return null;
-                })}
-            </div>
+            <BlogContent content={mainContent} />
         </article>
     );
 };

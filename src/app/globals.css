@@ -1,52 +1,32 @@
-    @tailwind base;
-    @tailwind components;
-    @tailwind utilities;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-    body{
-        margin: 0 auto;
-        width: 80%;
-        background-color: white;
-        color: black;
-    }
-    .btn {
-        background-color: black;
-        color: white;
-    }
-    
-    .btn:hover {
-        background-color: #4c4c4c;
-    }
-    .formstyle{
-        background-color: white;
-        box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.55);
-    }
-    select, input{
-        background-color: #f1f1f1;
-    }
-    .linkColor{
-        color: rgb(18, 18, 255);
-    }
-    /* Dark mode styles */
-    body.dark { 
-    background-color: #121212;
-    color: white;
-}
-.dark .btn { 
-    background-color: #f2f2f2;
-    color: black;
-}
+@layer base {
+  body {
+    @apply bg-white text-black dark:bg-gray-900 dark:text-gray-200;
+  }
+  
+  .btn {
+    @apply bg-black text-white 
+           font-bold py-2 px-4 rounded 
+           transition-colors duration-200 
+           hover:bg-gray-700 
+           dark:bg-gray-200 dark:text-black 
+           dark:hover:bg-gray-400
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
 
-.dark .btn:hover { 
-    background-color: #4c4c4c;
-    color: #f2f2f2;
-}
-.dark .formstyle{ 
-    background-color: #121212;
-    box-shadow: 0px 0px 5px 1px rgba(242,242,242,1);
-}
-.dark select, .dark input{ 
-    background-color: #242424;
-}
-.dark .linkColor{ 
-    color: rgb(231, 255, 18);
+  .formstyle {
+    @apply bg-white rounded-lg shadow-lg 
+           dark:bg-gray-800 dark:shadow-md dark:shadow-gray-700/50;
+  }
+
+  input, select, textarea {
+    @apply bg-gray-100 border-gray-300 dark:bg-gray-700 dark:border-gray-600;
+  }
+
+  .linkColor {
+    @apply text-blue-600 hover:underline dark:text-yellow-300;
+  }
 }
